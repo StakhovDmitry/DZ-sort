@@ -17,7 +17,7 @@ int main(void) {
   }
   char buffer = getc(file);
   while (buffer != EOF) {
-      if (buffer != ' ') {
+      if (buffer != '\n' && buffer != EOF) {
           n++;
           number = (char*)realloc(number, (n) * sizeof(char));
           *(number + n - 1) = buffer;
@@ -33,8 +33,7 @@ int main(void) {
           number = (char*)realloc(number, (n + 1) * sizeof(char));
       }
       buffer = getc(file);
-  }
-
+  } 
 
   max = arr[0];
   min = arr[0];
@@ -48,6 +47,12 @@ int main(void) {
   }
 
   max++;
+  FILE* Sortfile;
+
+  if ((Sortfile = fopen("Counting_sort", "w")) == NULL) {
+      printf("Cannot open file.\n");
+      exit(1);
+  }
   if (min < 0) {
       min = -min++;
       int* tnuoc = (int*)malloc((min) * sizeof(int));
@@ -62,7 +67,7 @@ int main(void) {
       for (i = min; i > 0; i = i - 1) {
           if (tnuoc[i] != 0) {
               for (int j = 0; j < tnuoc[i]; j++) {
-                  printf("%d\n", -i);
+                  fprintf(Sortfile,"%d\n", -i);
               }
           }
       }
@@ -80,7 +85,7 @@ int main(void) {
   for (i = 0; i < max; i++) {
      if (count[i] != 0) {
          for (int j = 0; j < count[i]; j++) {
-             printf("%i\n", i);
+             fprintf(Sortfile, "%i\n", i);
          }
      }
   }
