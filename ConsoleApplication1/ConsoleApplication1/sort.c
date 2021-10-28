@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 int main(void) {
   int length = 0, n = 0;
@@ -34,6 +35,9 @@ int main(void) {
       }
       buffer = getc(file);
   } 
+
+  clock_t begin = clock();
+ 
 
   max = arr[0];
   min = arr[0];
@@ -89,5 +93,8 @@ int main(void) {
          }
      }
   }
+  clock_t finish = clock();
+  double time_spent = (double)(finish - begin) / CLOCKS_PER_SEC;
+  printf("\n%lf", time_spent);
   return(0);
 }
